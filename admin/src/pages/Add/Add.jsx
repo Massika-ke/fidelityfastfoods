@@ -5,9 +5,10 @@ import { assets } from '../../assets/assets'
 import './Add.css'
 import { toast } from 'react-toastify'
 
-const Add = () => {
+// eslint-disable-next-line react/prop-types
+const Add = ({url}) => {
 
-    const url = "http://localhost:4000"
+    
     // Image preview state
     const [image, setImage] = useState(false);
     // Initialise state to store  food data
