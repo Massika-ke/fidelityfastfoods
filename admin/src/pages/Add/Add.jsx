@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { assets } from '../../assets/assets'
 import './Add.css'
+import { toast } from 'react-toastify'
 
 const Add = () => {
 
@@ -42,9 +43,10 @@ const Add = () => {
                 category:"Salad"
             })
             setImage(false)
+            toast.success(response.data.message)
         }
         else{
-            console.log("Error")
+            toast.error(response.data.message)
         }
     }
 
