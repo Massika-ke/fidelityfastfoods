@@ -1,8 +1,12 @@
 import { useState } from 'react'
+import axios from 'axios'
+
 import { assets } from '../../assets/assets'
 import './Add.css'
 
 const Add = () => {
+
+    const url = "http://localhost:4000"
     // Image preview state
     const [image, setImage] = useState(false);
     // Initialise state to store  food data
@@ -28,6 +32,20 @@ const Add = () => {
         formData.append("price", data.price)
         formData.append("category", data.category)
         formData.append("image", image)
+
+        const response = await axios.post(`${url}/api/food/add`, formData);
+        if (response.data.success) {
+            setData({
+                name: "",
+                description:"",
+                price:"",
+                category:"Salad"
+            })
+            setImage(false)
+        }
+        else{
+            console.log("Error")
+        }
     }
 
   return (
