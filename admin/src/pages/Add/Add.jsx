@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { assets } from '../../assets/assets'
 import './Add.css'
 
@@ -19,13 +19,20 @@ const Add = () => {
         setData(data=>({...data, [name]:value}))
     }
 
-    useEffect(()=>{
-        console.log(data);
-        
-    }, [data])
+    // API call
+    const onSubmitHandler = async (e) =>{
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("name", data.name)
+        formData.append("description", data.description)
+        formData.append("price", data.price)
+        formData.append("category", data.category)
+        formData.append("image", image)
+    }
+
   return (
     <div className='add'>
-        <form className="flex-col">
+        <form className="flex-col" onSubmit={onSubmitHandler}>
             <div className="add-img-upload flex-col">
                 <p>Upload Image</p>
                 <label htmlFor='image'>
