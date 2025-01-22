@@ -15,21 +15,21 @@ const createToken = (id)=>{
 
 // register user
 const registerUser = async (req, res)=>{
-    const {name, password, email} = req.body;
+    const {name,password,email} = req.body;
     try {
         // check if user already exists
         const exists = await userModel.findOne({email});
         if (exists) {
-            return res.json({success:false, message: "User Already Exists"})
+            return res.json({success:false,message: "User Already Exists"})
         }
 
         // validate email format and password
         if (!validator.isEmail(email)) {
-            return res.json({success:false, message: "Please Enter a valid Email"})
+            return res.json({success:false,message: "Please Enter a valid Email"})
         }
 
-        if (password.length>8) {
-            return res.json({success:false, message:"Password must be 8 characters"})
+        if (password.length<8) {
+            return res.json({success:false,message:"Password must be 8 characters"})
         }
 
         // Hashing user password
@@ -40,16 +40,16 @@ const registerUser = async (req, res)=>{
         const newUser = new userModel({
             name:name,
             email:email,
-            password:password
+            password:hashedPassword
         })
         // save the user
         const user = await newUser.save()
-        const token = createToken(user_id)
-        res.json({success:true, token});
+        const token = createToken(user._id)
+        res.json({success:true,token});
 
     } catch (error) {
         console.log(error);
-        res.json({success:false, message: "Error"})
+        res.json({success:false,message: "Error"})
     }
 }
 
