@@ -3,14 +3,15 @@ import { assets } from '../../assets/assets';
 import { useContext } from 'react';
 import { StoreContext } from '../../context/StoreContext';
 
+// eslint-disable-next-line react/prop-types
 const FoodItem = ({id, name, price, description, image}) => {
 
-    const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
+    const {cartItems, addToCart, removeFromCart, url} = useContext(StoreContext);
 
   return (
     <div className='food-item'>
       <div className="food-item-img-container">
-        <img className='food-item-image' src={image} alt="" />
+        <img className='food-item-image' src={url+"/images/"+image} alt="" />
         {
             !cartItems[id] ? <img className='add' 
             onClick={()=>addToCart(id)} src={assets.add_icon_white} />
