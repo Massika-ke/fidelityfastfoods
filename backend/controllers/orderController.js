@@ -1,5 +1,5 @@
-import orderModel from "../models/orderModel";
-import userModel from "../models/userModel";
+import orderModel from "../models/orderModel.js";
+import userModel from "../models/userModel.js";
 import Stripe from "stripe"
 
 
@@ -7,6 +7,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 // Placing an order from frontend
 const placeOrder = async (req, res)=>{
+
+    const frontend_url = "http://localhost:5173/"
 
     try {
         const newOrder = new orderModel({
@@ -24,7 +26,7 @@ const placeOrder = async (req, res)=>{
                 product_data:{
                     name:item.name
                 },
-                unit_amount:item.price_data*100
+                unit_amount:item.price*100
             },
             quantity:item.quantity
         }))
@@ -35,10 +37,22 @@ const placeOrder = async (req, res)=>{
                 product_data:{
                     name: "Delivery Charges"
                 },
-                quantity:1
-            }
+                unit_amount: 2*100
+            },
+            quantity:1
         })
+
+        const session = await stripe.checkout.sessions.create({
+            line_items:line_items,
+            mode:'payment',
+            success_url: `${frontend_url}/verify ? success=true&orderId=${newOrder.id}`,
+            cancel_url: `${frontend_url}/verify ? success=false&orderId=${newOrder.id}`
+        })
+        res.json({success:true, session_url:session.url})
+
     } catch (error) {
+        console.log(error);
+        res.json({success:false, message:"Error"})
         
     }
 }
