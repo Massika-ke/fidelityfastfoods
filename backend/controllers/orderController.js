@@ -8,9 +8,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 // Placing an order from frontend
 const placeOrder = async (req, res)=>{
 
+    // url for redirect after payment
     const frontend_url = "http://localhost:5173/"
 
     try {
+        // initializes order in the db
         const newOrder = new orderModel({
             userId: req.body.userId,
             items:req.body.items,
@@ -18,8 +20,10 @@ const placeOrder = async (req, res)=>{
             address: req.body.address
         })
         await newOrder.save();
-        await userModel.findByIdAndUpdate(req.body.userId, {cartData:{}})
 
+        // cart reset after order
+        await userModel.findByIdAndUpdate(req.body.userId, {cartData:{}})
+        // stripe payment setup
         const line_items = req.body.items.map((item)=>({
             price_data:{
                 currency: "inr",
@@ -30,7 +34,8 @@ const placeOrder = async (req, res)=>{
             },
             quantity:item.quantity
         }))
- 
+
+        // Delivery fees
         line_items.push({
             price_data:{
                 currency: "inr",
@@ -42,10 +47,11 @@ const placeOrder = async (req, res)=>{
             quantity:1
         })
 
+        // checkout session
         const session = await stripe.checkout.sessions.create({
             line_items:line_items,
             mode:'payment',
-            success_url: `${frontend_url}/verify?success=true&orderId=${newOrder.id}`,
+            success_url: `${frontend_url}/verify?success=true&orderId=${newOrder.id}`, // return session url for frontend redirect
             cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder.id}`
         })
         res.json({success:true, session_url:session.url})
