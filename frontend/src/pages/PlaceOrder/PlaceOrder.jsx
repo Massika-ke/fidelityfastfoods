@@ -18,13 +18,19 @@ const PlaceOrder =()=> {
     phone:""
   })
 
+  const onChangeHandler = (event) =>{
+    const name = event.target.name;
+    const value = event.target.value;
+    setData(data=>({...data,[name]:value}))
+  }
+
   return (
     <form className='place-order'>
       <div className="place-order-left">
         <p className="title">Delivery Information</p>
         <div className="multi-fields">
-          <input type="text" placeholder='First name' />
-          <input type="text" placeholder='Last name' />
+          <input name='firstName' onChange={onChangeHandler} value={data.firstName} type="text" placeholder='First name' />
+          <input name='lastName' onChange={onChangeHandler} value={data.lastName} type="text" placeholder='Last name' />
         </div>
         <input type="email" placeholder='Email Address' />
         <input type="text" placeholder='Street' />
