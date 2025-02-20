@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const placeOrder = async (req, res)=>{
 
     // url for redirect after payment
-    const frontend_url = "http://localhost:5173/"
+    const frontend_url = "http://localhost:5173"
 
     try {
         // initializes order in the db
@@ -64,21 +64,47 @@ const placeOrder = async (req, res)=>{
 }
 
 // verify payment and update db
-const verifyOrder = async (req,res) =>{
+const verifyOrder = async (req, res) =>{
     const {orderId, success} = req.body;
 
     try {
-        if (success == "true") {
-            await orderModel.findByIdAndUpdate(orderId, {payment:true});
-            res.json({success:true, message: "Paid"});
+
+        const order = await orderModel.findById(orderId);
+
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Order Id Required"
+            })
         }
-        else{
+
+        if (success == "true") {
+            await orderModel.findByIdAndUpdate(orderId, {payment: true});
+            res.json({
+                success:true, 
+                message: "Payment Verified"
+            });
+        }
+        else {
             await orderModel.findByIdAndDelete(orderId);
-            res.json({success:false, message: "Not Paid"})
+            res.json({
+                success:false, 
+                message: "Payment Verification Failed"
+            })
         }
     } catch (error) {
-       console.log(error);
-        res.json({success:false, message: "Error"})
+    //    console.log(error);
+    //     res.json({
+    //         success:false, 
+    //         message: "Error"
+    //     })
+        console.error("Order verification error:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+
     }
 }
 
