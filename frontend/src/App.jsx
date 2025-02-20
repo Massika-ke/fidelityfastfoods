@@ -18,10 +18,10 @@ const App = ()=>{
       <div className="app">
         <Navbar setShowLogin={setShowLogin} />
         <Routes>
-          <Route path="/" Component={Home} />
+          <Route path="/" element={<Home/>} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/order" element={<PlaceOrder/>} />
-          <Route path="/verify" element={<Verify />} />
+          <Route path="/verify" element={<Verify/>} />
         </Routes>
       </div>
       <Footer />
