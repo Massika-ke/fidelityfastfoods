@@ -26,7 +26,7 @@ const placeOrder = async (req, res)=>{
         // stripe payment setup
         const line_items = req.body.items.map((item)=>({
             price_data:{
-                currency: "inr",
+                currency: "kes",
                 product_data:{
                     name:item.name
                 },
@@ -38,7 +38,7 @@ const placeOrder = async (req, res)=>{
         // Delivery fees
         line_items.push({
             price_data:{
-                currency: "inr",
+                currency: "kes",
                 product_data:{
                     name: "Delivery Charges"
                 },
@@ -63,4 +63,8 @@ const placeOrder = async (req, res)=>{
     }
 }
 
-export {placeOrder}
+const verifyOrder = async (req,res) =>{
+
+}
+
+export {placeOrder, verifyOrder}

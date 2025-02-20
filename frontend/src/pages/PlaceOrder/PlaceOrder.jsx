@@ -27,7 +27,7 @@ const PlaceOrder =()=> {
     setData(data=>({...data,[name]:value}))
   }
 
-  // handle submission
+  // handle item submission
   const placeOrder = async(event)=>{
     event.preventDefault();
     let orderItems = [];
@@ -39,12 +39,17 @@ const PlaceOrder =()=> {
       }
     }) 
     
+    // orderData object + delivery info
     let orderData = {
       address:data,
       items:orderItems,
-      amount:getTotalCartAmount()+2,
+      amount:getTotalCartAmount() + 2,
     }
-    let response = await axios.post(url+"/api/order/place", orderData,{headers:{token}})
+
+    // post orderdata to db with auth token
+    let response = await axios.post(url+"/api/order/place", orderData, {
+      headers:{token}
+    })
     if (response.data.success) {
       const {session_url} = response.data;
       window.location.replace(session_url)
