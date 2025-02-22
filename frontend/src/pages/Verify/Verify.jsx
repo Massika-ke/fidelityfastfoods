@@ -48,23 +48,23 @@ const Verify = () => {
     }, []);
     
   return (
-    // <div className="verify">
-    //    <div className="spinner">
+    <div className="verify">
+       <div className="spinner">
 
-    //    </div>
-    // </div>
-    <div className="verify min-h-screen flex items-center justify-center">
-            {isLoading ? (
-                <div className="spinner-container text-center">
-                    <div className="spinner mb-4"></div>
-                    <p>Verifying your payment...</p>
-                </div>
-            ) : error ? (
-                <div className="error-message text-red-500">
-                    {error}
-                </div>
-            ) : null}
-        </div>
+       </div>
+    </div>
+    // <div className="verify min-h-screen flex items-center justify-center">
+    //         {isLoading ? (
+    //             <div className="spinner-container text-center">
+    //                 <div className="spinner mb-4"></div>
+    //                 <p>Verifying your payment...</p>
+    //             </div>
+    //         ) : error ? (
+    //             <div className="error-message text-red-500">
+    //                 {error}
+    //             </div>
+    //         ) : null}
+    //     </div>
     
   )
 }
