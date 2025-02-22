@@ -64,49 +64,70 @@ const placeOrder = async (req, res)=>{
 }
 
 // verify payment and update db
-const verifyOrder = async (req, res) =>{
-    const {orderId, success} = req.body;
+// const verifyOrder = async (req, res) =>{
+//     const {orderId, success} = req.body;    
+
+//     try {
+
+//         if (success === "true") {
+//             await orderModel.findByIdAndUpdate(orderId, {payment: true});
+//             res.json({
+//                 success:true, 
+//                 message: "Payment Verified"
+//             });
+//         }
+//         else {
+//             await orderModel.findByIdAndDelete(orderId);
+//             res.json({
+//                 success:false, 
+//                 message: "Payment Verification Failed"
+//             })
+//         }
+//     } catch (error) {
+//        console.error(error);
+//         res.json({
+//             success:false, 
+//             message: "Error"
+//         })
+
+//     }
+// }
+const verifyOrder = async (req, res) => {
+    const { orderId, success } = req.body;
 
     try {
+        if (!orderId) {
+            return res.status(400).json({ success: false, message: "Order ID is required" });
+        }
 
         const order = await orderModel.findById(orderId);
 
         if (!order) {
-            return res.status(404).json({
-                success: false,
-                message: "Order Id Required"
-            })
+            return res.status(404).json({ success: false, message: "Order not found" });
         }
 
-        if (success == "true") {
-            await orderModel.findByIdAndUpdate(orderId, {payment: true});
+        if (success === "true") {
+            await orderModel.findByIdAndUpdate(orderId, { payment: true });
             res.json({
-                success:true, 
-                message: "Payment Verified"
+                success: true,
+                message: "Payment Verified",
             });
-        }
-        else {
+        } else {
             await orderModel.findByIdAndDelete(orderId);
             res.json({
-                success:false, 
-                message: "Payment Verification Failed"
-            })
+                success: false,
+                message: "Payment Verification Failed",
+            });
         }
     } catch (error) {
-    //    console.log(error);
-    //     res.json({
-    //         success:false, 
-    //         message: "Error"
-    //     })
-        console.error("Order verification error:", error);
-        return res.status(500).json({
+        console.error("Error verifying order:", error);
+        res.status(500).json({
             success: false,
-            message: "Internal server error",
-            error: process.env.NODE_ENV === 'development' ? error.message : undefined
+            message: "Internal Server Error",
         });
-
     }
-}
+};
+
 
 // frontend user orders
 const userOrders = async (req, res) =>{

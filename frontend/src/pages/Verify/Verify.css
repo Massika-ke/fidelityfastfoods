@@ -4,7 +4,7 @@
 }
 .verify .spinner{
     width: 100px;
-    height: 1000px;
+    height: 100px;
     place-self: center;
     border: 5px solid #bdbdbd;
     border-top-color: tomato;

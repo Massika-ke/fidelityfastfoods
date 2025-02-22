@@ -9,7 +9,7 @@ import axios from "axios";
 const Verify = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [isLoading, setIsLoading] = useState(true)
+    // const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null);
     const success = searchParams.get("success")
     const orderId = searchParams.get("orderId")
@@ -19,10 +19,8 @@ const Verify = () => {
 
     const verifyPayment = async ()=>{
 
-        try {
-            setIsLoading(true);
-            const response = await axios.post(
-            `${url} /api/order/verify`, {success, orderId}
+        const response = await axios.post(
+            url + "/api/order/verify", {success, orderId}
         );
 
         if (response.data.success) {
@@ -31,15 +29,15 @@ const Verify = () => {
         else{
             navigate("/")
         }
-        } catch (error) {
-            console.error("Verification error:", error);
-            setError("Payment verification failed");
-            // Redirect to home after error
-            setTimeout(() => navigate("/"), 2000);
-        }
-        finally {
-            setIsLoading(false)
-        }
+        // } catch (error) {
+        //     console.error("Verification error:", error);
+        //     setError("Payment verification failed");
+        //     // Redirect to home after error
+        //     setTimeout(() => navigate("/"), 2000);
+        // }
+        // finally {
+        //     setIsLoading(false)
+        // }
         
     }
 
