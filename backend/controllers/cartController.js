@@ -6,7 +6,7 @@ const addToCart = async (req, res)=>{
         // find the user by id & get user's cart data
         let userData = await userModel.findById(req.body.userId);
         let cartData = await userData.cartData;
-
+        
         // check if item exists in cart
         if (!cartData[req.body.itemId]) {
             // if item doesnt exists initialize with 1
