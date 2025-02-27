@@ -35,3 +35,14 @@
     cursor: pointer;
     color: #454545;
 }
+
+@media (max-width:900px){
+    .my-orders-order{
+        grid-template-columns: 1fr 2fr 1fr;
+        row-gap: 5px;
+        font-size: 12px;
+    }
+    .my-orders-order button{
+        font-size: 10px;
+    }
+}
