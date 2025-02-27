@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './Orders.css'
-import toast from 'react-toastify'
+import {toast} from 'react-toastify'
 import axios from 'axios'
 import { useEffect } from 'react'
 import {assets} from "../../assets/assets"
@@ -47,8 +47,14 @@ const Orders = ({url}) => {
               <p className="order-item-name">
                 {order.address.firstName + " " + order.address.lastName}
               </p>
-               
+               <div className="order-item-address">
+                <p>{order.address.street + ","}</p>
+                <p>{order.address.city + ", " + order.address.state + ", " + order.address.country+ ", " + order.address.zipcode}</p>
+               </div>
+               <p className="order-item-phone">{order.address.phone}</p>
             </div>
+            <p>Items : {order.items.length}</p>
+            <p>${order.amount}</p>
           </div>
         ))}
       </div>
