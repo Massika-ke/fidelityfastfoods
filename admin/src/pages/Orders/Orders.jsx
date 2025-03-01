@@ -32,7 +32,7 @@ const Orders = ({url}) => {
       <h3>Order Page</h3>
       <div className="order list">
         {orders.map((order, index)=>(
-          <div key={index} className="order item">
+          <div key={index} className="order-item">
             <img src={assets.parcel_icon} alt="" />
             <div>
               <p className="order-item-food">
@@ -55,6 +55,11 @@ const Orders = ({url}) => {
             </div>
             <p>Items : {order.items.length}</p>
             <p>${order.amount}</p>
+            <select>
+              <option value="Food Processing">Food Processing</option>
+              <option value="Out for delivery">Out for Delivery</option>
+              <option value="Delivered">Delivered</option>
+            </select>
           </div>
         ))}
       </div>
