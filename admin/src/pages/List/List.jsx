@@ -5,7 +5,7 @@ import './List.css'
 
 
 // eslint-disable-next-line react/prop-types
-const List = ({url}) => {
+const List = ({ url }) => {
 
   const [list, setList] = useState(false)
 

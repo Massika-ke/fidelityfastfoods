@@ -4,6 +4,7 @@ import './Navbar.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 
+// eslint-disable-next-line react/prop-types
 const Navbar = ({setShowLogin}) => {
 
     const[menu, setMenu] = useState("home");
