@@ -43,7 +43,7 @@ Fidelity Fast Foods is a comprehensive full-stack web application designed to fa
 
 The application addresses the need for a modern, user-friendly platform for local food vendors to showcase their offerings and manage orders effectively. It's built using JavaScript, leveraging the power of React for the frontend and Node.js with Express.js for the backend, ensuring a responsive and scalable architecture.
 
-Key technologies employed include React for the user interface, Node.js and Express.js for the server-side logic, and a relational database (e.g., PostgreSQL) for data persistence. The application boasts a responsive design, making it accessible on various devices.
+Key technologies employed include React for the user interface, Node.js and Express.js for the server-side logic, and mongoBD database for data persistence. The application boasts a responsive design, making it accessible on various devices.
 
 ## ✨ Features
 
@@ -57,14 +57,16 @@ Key technologies employed include React for the user interface, Node.js and Expr
 
 ## 🎬 Demo
 
-🔗 **Live Demo**: [https://fidelityfastfoods.example.com](https://fidelityfastfoods.example.com)
+🔗 **Live Demo**: [https://fidelityfoods.onrender.com/]
 
 ### Screenshots
-![Main Interface](screenshots/main-interface.png)
-*Homepage showcasing available food vendors and menu items.*
+![Main Interface](screenshots/main-interface)
+<img width="1919" height="910" alt="landing-page" src="https://github.com/user-attachments/assets/0406eb94-ed82-4c68-8070-5a33d978f73e" />
 
-![Dashboard View](screenshots/dashboard.png)  
-*Vendor dashboard with order management and menu customization options.*
+
+![Foods Dashboard View](screenshots/foods)  
+<img width="1919" height="910" alt="landing-page" src="https://github.com/user-attachments/assets/adf6c7da-947c-4dbc-b0bc-81cd306c6e33" />
+
 
 ## 🚀 Quick Start
 
@@ -98,11 +100,6 @@ npm run build
 
 # Start development server
 npm run dev
-```
-
-### Option 2: Docker (Coming Soon)
-```bash
-docker run -p 3000:3000 massika-ke/fidelityfastfoods
 ```
 
 ## 💻 Usage
@@ -297,62 +294,7 @@ cd server
 npm test
 ```
 
-(Assuming you have set up testing frameworks like Jest and testing scripts in `package.json`)
-
-## Deployment
-
-### Heroku (Example)
-1.  Create a Heroku account and install the Heroku CLI.
-2.  Create a new Heroku app: `heroku create`
-3.  Set environment variables: `heroku config:set DATABASE_URL=your_database_url`
-4.  Deploy the application:
-    ```bash
-    git push heroku main
-    ```
-
-### Docker (Example)
-
-1. Create a `Dockerfile` in the root directory:
-
-```dockerfile
-# Use an official Node.js runtime as a parent image
-FROM node:18
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
-COPY . .
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Define the command to run the app
-CMD [ "npm", "start" ]
-```
-
-2. Build the Docker image:
-
-```bash
-docker build -t fidelityfastfoods .
-```
-
-3. Run the Docker container:
-
-```bash
-docker run -p 3000:3000 fidelityfastfoods
-```
-
 ## FAQ
-
-**Q: How do I contribute to the project?**
-A: Please see the [Contributing Guide](CONTRIBUTING.md) for detailed instructions.
 
 **Q: I'm getting a database connection error. What should I do?**
 A: Ensure that your database is running and that the `DATABASE_URL` environment variable is correctly configured.
@@ -371,13 +313,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - ✅ Private use
 - ❌ Liability
 - ❌ Warranty
-
-## 💬 Support
-
-- 📧 **Email**: support@fidelityfastfoods.example.com
-- 💬 **Discord**: [Join our community](https://discord.gg/your-discord-invite)
-- 🐛 **Issues**: [GitHub Issues](https://github.com/Massika-ke/fidelityfastfoods/issues)
-- 📖 **Documentation**: [Full Documentation](https://docs.fidelityfastfoods.example.com)
 
 ## 🙏 Acknowledgments
 
